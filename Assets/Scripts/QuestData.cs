@@ -3,13 +3,13 @@ using System;
 
 public abstract class QuestData : ScriptableObject 
 {
-    [Header("Quest Info")]
+    [Header("Quest Properties")]
     public string questName;
+    public int requiredAmount;
 
     [Header("Runtime Tracking")]
-    public int currentProgress;
-    public int requiredAmount;
-    public bool isCompleted;
+    [HideInInspector] public int currentProgress;
+    [HideInInspector] public bool isCompleted;
 
     private string questID;
     public string QuestID => questID ?? (questID = Guid.NewGuid().ToString());

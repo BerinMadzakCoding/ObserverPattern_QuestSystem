@@ -43,9 +43,11 @@ public class EnemyController : MonoBehaviour
         col.enabled = false;
         Invoke("Despawn", 2f);
         EnemySpawner.Instance.Respawn(type, transform.position);
-        OnDie?.Invoke();
 
         EventManager.Instance.HandleEnemyKilled(type);
+        
+        OnDie?.Invoke();
+
     }
 
     private void SpawnLoot()

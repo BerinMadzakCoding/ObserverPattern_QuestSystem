@@ -9,18 +9,20 @@ public class QuestUI : MonoBehaviour
     [SerializeField] private Image background;
 
     private QuestData data;
+    private string assignedQuestID;
+
+    public string QuestID => data != null ? assignedQuestID : null;
 
     public void SetData(QuestData data)
     {
         this.data = data;
+        assignedQuestID = data.QuestID;
 
         questName.text = data.questName;
         questProgress.text = $"{data.currentProgress}/{data.requiredAmount}";
     }
 
-    public string GetQuestID => data != null ? data.QuestID : null;
-
-    void OnEnable()
+    void Start()
     {
         EventManager.Instance.OnQuestProgressUpdated += HandleQuestProgressUpdated;
         EventManager.Instance.OnQuestCompleted += HandleQuestCompleted;
@@ -34,7 +36,7 @@ public class QuestUI : MonoBehaviour
 
     private void HandleQuestCompleted(QuestData data)
     {
-        if (data.QuestID == this.data.QuestID)
+        if (data.QuestID == assignedQuestID)
         {
             Destroy(gameObject, 2f);
         }
@@ -42,7 +44,7 @@ public class QuestUI : MonoBehaviour
 
     private void HandleQuestProgressUpdated(string questID, int value)
     {
-        if(questID == data.QuestID)
+        if(questID == assignedQuestID)
         {
             questProgress.text = $"{value}/{data.requiredAmount}";
 

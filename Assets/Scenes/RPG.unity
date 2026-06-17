@@ -22701,6 +22701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df3d5651fef578a49a683b874aea6ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestManager
+  maxQuests: 5
 --- !u!4 &1886261907
 Transform:
   m_ObjectHideFlags: 0

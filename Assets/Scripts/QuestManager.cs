@@ -46,13 +46,22 @@ public class QuestManager : MonoBehaviour
         return quests.Exists(q => q.QuestID == id);
     }
 
-    private void OnEnable()
+    private void Start()
     {
         EventManager.Instance.OnQuestCompleted += HandleQuestCompletion;
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnQuestCompleted -= HandleQuestCompletion;
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.OnQuestCompleted -= HandleQuestCompletion;
+        }
+
+        // Clean up any active runtime quests to prevent static reference memory leaks
+        foreach (var quest in quests)
+        {
+            if (quest != null) quest.CancelRuntimeQuest();
+        }
     }
 }

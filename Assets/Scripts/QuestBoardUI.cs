@@ -8,7 +8,7 @@ public class QuestBoardUI : MonoBehaviour
 
     private List<QuestUI> quests = new List<QuestUI>();
 
-    void OnEnable()
+    void Start()
     {
         EventManager.Instance.OnQuestAdded += HandleQuestAdded;
         EventManager.Instance.OnQuestCompleted += HandleQuestCompleted;
@@ -22,7 +22,7 @@ public class QuestBoardUI : MonoBehaviour
 
     private void HandleQuestCompleted(QuestData data)
     {
-        quests.RemoveAll(q => q.GetQuestID == data.QuestID);
+        quests.RemoveAll(q => q.QuestID == data.QuestID);
     }
 
     private void HandleQuestAdded(QuestData data)
