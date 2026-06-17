@@ -17,12 +17,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 3f;
     [SerializeField] private float gravity = 20f;
     [SerializeField] private float rotationSpeed = 6f;
-    [SerializeField] private float damage = 50f;
+    [SerializeField] private int damage = 50;
 
     private InputSystem_Actions input;
     private Vector2 movementDirection = Vector2.zero;
     private Vector2 rotationDirection = Vector2.zero;
-
 
     private void Awake()
     {

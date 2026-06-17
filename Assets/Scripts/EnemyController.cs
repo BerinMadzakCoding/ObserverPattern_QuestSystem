@@ -14,16 +14,16 @@ public class EnemyController : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField] private EnemyType type;
-    [SerializeField] private float health = 100f;
+    [SerializeField] private int health = 100;
 
-    private float currentHealth;
+    private int currentHealth;
 
     private void Start()
     {
         currentHealth = health;
     }
 
-    public void DealDamage(float damage)
+    public void DealDamage(int damage)
     {
         currentHealth -= damage;
         OnHealthChanged?.Invoke(currentHealth, health);
