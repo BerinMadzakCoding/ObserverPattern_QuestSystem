@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -14,19 +15,22 @@ public class EnemyController : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField] private EnemyType type;
-    [SerializeField] private float health = 100f;
+    [SerializeField] private int health = 100;
 
-    private float currentHealth;
+    private int currentHealth;
 
     private void Start()
     {
         currentHealth = health;
     }
 
-    public void DealDamage(float damage)
+    public void DealDamage(int damage)
     {
         currentHealth -= damage;
         OnHealthChanged?.Invoke(currentHealth, health);
+
+        EventManager.Instance.HandleDamageDone(damage);
+
         if (currentHealth <= 0)
         {
             Die();
@@ -41,6 +45,8 @@ public class EnemyController : MonoBehaviour
         Invoke("Despawn", 2f);
         EnemySpawner.Instance.Respawn(type, transform.position);
         OnDie?.Invoke();
+
+        EventManager.Instance.HandleEnemyKilled(type);
     }
 
     private void SpawnLoot()

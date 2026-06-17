@@ -21,6 +21,7 @@ public class Coin : MonoBehaviour
     {
         if (other.TryGetComponent(out PlayerController playerController))
         {
+            EventManager.Instance.HandleCollectiblePickedUp(CollectibleType.Coin);
             Destroy(gameObject);
         }
     }

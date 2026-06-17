@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class Questgiver : MonoBehaviour, IInteractable
 {
+    [SerializeField] private QuestData[] quests;
+
     public void Interact()
     {
-        Debug.Log("Interact with Questgiver");
+        QuestData quest = quests[Random.Range(0, quests.Length)];
+        QuestManager.Instance.AddQuest(quest);
     }
 
     void OnTriggerEnter(Collider other)

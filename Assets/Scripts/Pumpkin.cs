@@ -20,6 +20,8 @@ public class Pumpkin : MonoBehaviour, IInteractable
             collider.enabled = false;
         }
 
+        EventManager.Instance.HandleCollectiblePickedUp(CollectibleType.Pumpkin);
+
         Invoke("Respawn", 20f);
     }
 
