@@ -1,31 +1,46 @@
-# Scalable Quest System using the Observer Pattern
+# Scalable Quest System using the Observer Pattern - Starting Project
 
-A decoupled, modular quest system built in **Unity 6** utilizing the **Observer Design Pattern** and **ScriptableObjects**. This repository is the complete companion project for the technical tutorial published on TODO.
+This is the **starting branch** for the companion project to the tutorial [Creating a Robust Quest System in Unity Using the Observer Pattern](https://codeandarchitecture.hashnode.dev/creating-a-robust-quest-system-in-unity-using-the-observer-pattern). It's a bare-bones RPG sandbox with **no quest system yet** - you'll build one from scratch by following the tutorial, using the Observer pattern and C# events to keep it fully decoupled from existing gameplay code.
 
-The architecture demonstrates how to separate player and world actions (*Subjects*) from quest progression and UI tracking (*Observers*) using centralized C# events, completely eliminating tight coupling.
+> Want to see the finished result first, or just grab the working code? Switch to the [`main`](https://github.com/BerinMadzakCoding/ObserverPattern_QuestSystem) branch instead.
 
-## Key Features
+## What's Already Here
 
-* **Decoupled Architecture:** Features a centralized `EventManager` utilizing C# `Action` delegates so gameplay systems never directly depend on the quest logic.
-* **ScriptableObject-Driven Quests:** Uses abstract `QuestData` architecture to allow designers to create new quest types (Kill, Collect, Deal Damage) natively inside the Unity Editor.
-* **Runtime Data Isolation:** Implements runtime asset cloning (`Instantiate`) to prevent dynamic runtime variables (like current progress) from permanently modifying disk-based source assets.
-* **Concurrent Quest Tracking:** A centralized `QuestManager` manages a dynamic list of multiple active concurrent quests simultaneously up to a configurable cap.
-* **Dynamic Unique IDs:** Leverages system `Guid` generation to unique-index runtime instances, avoiding ID collisions even if duplicate quest types are accepted.
+The sandbox is intentionally simple so you can focus on the quest system itself:
+
+* **`PlayerController.cs`** - movement and attacking
+* **`EnemyController.cs`** + **`EnemyHealthUI.cs`** - basic enemy AI; `EnemyHealthUI` already demonstrates the Observer pattern by listening to the enemy's health changes, and is used as a reference example in the tutorial
+* **`EnemySpawner.cs`** - respawns enemies after they die
+* **`Coin.cs`** / **`Pumpkin.cs`** - two collectible types, picked up differently (walk-over vs. interact)
+* **`InteractManager.cs`** / **`IInteractable.cs`** - a basic interaction system
+* **`Questgiver.cs`** - present in the scene but intentionally unimplemented; this is where you'll wire up quest assignment
+
+## What You'll Build
+
+Following the tutorial, you'll add:
+
+* An `EventManager` (Singleton) to centralize gameplay events
+* A `CollectibleType` enum and events for enemy kills, damage dealt, and collectibles picked up
+* An abstract `QuestData` architecture with concrete quest types (Kill, Collect, Deal Damage)
+* A `QuestManager` to track active quests
+* `QuestUI` / `QuestBoardUI` to display quest progress on screen
 
 ## Tech Stack & Version
 
 * **Engine:** Unity 6000.3.17f1 (or newer)
 * **Language:** C#
 
-## Repository Branches
+## Getting Started
 
-To make the learning experience seamless, this repository is split into two distinct states:
-* **`main`**: The fully finished, polished project featuring the complete quest logic, UI panels, event handling, and sample quest types.
-* **`StartingProject`**: The baseline sandbox setup containing only the character controller, basic enemies, and environmental interactables—ideal if you want to follow the tutorial step-by-step.
-
-To clone the repository and switch to the starter branch to follow along:
 ```bash
 git clone https://github.com/BerinMadzakCoding/ObserverPattern_QuestSystem
 cd ObserverPattern_QuestSystem
 git checkout StartingProject
 ```
+
+Open the project with Unity Hub, open the `RPG` scene under `Assets/Scenes`, and follow along with the [tutorial](https://codeandarchitecture.hashnode.dev/creating-a-robust-quest-system-in-unity-using-the-observer-pattern) from the top.
+
+## Repository Branches
+
+* **`StartingProject`** *(you are here)* - the baseline sandbox: character controller, basic enemies, and environmental interactables only.
+* **[`main`](https://github.com/BerinMadzakCoding/ObserverPattern_QuestSystem)** - the fully finished project with complete quest logic, UI panels, event handling, and sample quest types.
